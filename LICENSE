@@ -1,0 +1,41 @@
+SEED-Core Community & Commercial License (v1.0)
+Copyright (c) 2026 Jarosław Kuchta, SEED AGI Core Team. All rights reserved.
+
+================================================================================
+1. FREE FOR PERSONAL, EDUCATIONAL, AND NON-COMMERCIAL USE
+================================================================================
+Permission is hereby granted, free of charge, to any individual, researcher,
+educator, or open-source developer to inspect, use, copy, modify, and compile
+this Software solely for personal, educational, non-commercial evaluation,
+and non-commercial academic research purposes, subject to the following conditions:
+
+(a) The above copyright notice, this list of conditions, and the following
+    disclaimer shall be included in all copies or substantial portions of the Software.
+(b) Non-commercial use does NOT include any activity intended for, or directed
+    toward, commercial advantage, enterprise deployments, or monetary compensation.
+
+================================================================================
+2. COMMERCIAL & CORPORATE USE (PAID LICENSE REQUIRED)
+================================================================================
+Any use, deployment, linking, incorporation, hosting, or distribution of this
+Software (or any derivative work) by or on behalf of:
+  - Any commercial enterprise, corporation, company, or legal business entity, OR
+  - Any individual or organization in a revenue-generating production environment,
+
+is STRICTLY PROHIBITED without first obtaining an explicit, valid Commercial License
+Agreement from the copyright holder.
+
+To request an Enterprise / Commercial License, custom JFP integration, or dual-license terms:
+Contact: Jarosław Kuchta <jarohull@gmail.com>
+Repository: https://github.com/jarohull-ai/seed-core
+
+================================================================================
+3. DISCLAIMER OF WARRANTIES
+================================================================================
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

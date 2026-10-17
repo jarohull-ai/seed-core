@@ -1,7 +1,7 @@
 # SEED-Core — Deterministic 2-Stage AGI Decider & Real-Time Memory Engine
 
 [![Language: Rust](https://img.shields.io/badge/Language-Rust%202021-orange.svg)]()
-[![License: Proprietary / JFP Standard](https://img.shields.io/badge/License-JFP%20Standard-blue.svg)]()
+[![License: Free for Personal / Paid Commercial](https://img.shields.io/badge/License-Free%20Personal%20%2F%20Paid%20Commercial-blue.svg)]()
 [![Status: Operational](https://img.shields.io/badge/Status-Operational-brightgreen.svg)]()
 [![Tests: 5/5 Passing](https://img.shields.io/badge/Tests-5%2F5%20Passing-success.svg)]()
 
@@ -107,3 +107,11 @@ seed-core/
 
 Built on **JFP v16E.0.0** and **viper-boxd.profile.v0** specifications.  
 Author: Jarosław Kuchta | VIKI Ecosystem
+
+---
+
+## ⚖️ License & Commercial Terms
+
+- **Free for Personal & Non-Commercial Use:** Completely free for individual developers, hobbyists, students, and academic/open research.
+- **Commercial & Enterprise Use:** Any deployment, linking, or incorporation into commercial products, revenue-generating systems, or for-profit corporate environments requires a valid Commercial License Agreement.
+- **Enterprise Contact:** Jarosław Kuchta (`jarohull@gmail.com`) | Repository: [github.com/jarohull-ai/seed-core](https://github.com/jarohull-ai/seed-core)
