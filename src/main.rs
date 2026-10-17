@@ -23,13 +23,17 @@ enum Commands {
         #[arg(short, long)]
         intent: String,
 
-        /// Action type: file_read, file_write, command_exec, network_fetch, plan_step
+        /// Action type: file_read, file_write, command_exec, network_fetch, browser_action, plan_step
         #[arg(short, long)]
         action: String,
 
-        /// Target path or command argument
+        /// Target path, URL, or command argument
         #[arg(short, long)]
         target: Option<String>,
+
+        /// Profile mode: HOST_SOVEREIGN or OFFLINE_STRICT
+        #[arg(short, long, default_value = "HOST_SOVEREIGN")]
+        profile: String,
 
         /// Local Intrinsic Dimensionality [0.0 - 1.0]
         #[arg(long, default_value_t = 0.25)]
@@ -48,6 +52,10 @@ enum Commands {
         /// Optional TCP address (e.g. 127.0.0.1:4040)
         #[arg(short, long)]
         tcp: Option<String>,
+
+        /// Profile mode: HOST_SOVEREIGN or OFFLINE_STRICT
+        #[arg(short, long, default_value = "HOST_SOVEREIGN")]
+        profile: String,
     },
     /// Add knowledge neuron to real-time episodic memory
     Learn {
@@ -60,22 +68,29 @@ enum Commands {
         domain: String,
     },
     /// Print system status and verified audit chain length
-    Status,
+    Status {
+        /// Profile mode: HOST_SOVEREIGN or OFFLINE_STRICT
+        #[arg(short, long, default_value = "HOST_SOVEREIGN")]
+        profile: String,
+    },
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
-    let decider = Arc::new(SeedDecider::new("OFFLINE_STRICT", "scratch"));
     let knowledge = Arc::new(KnowledgeStore::new());
 
     match cli.command {
-        Commands::Eval { intent, action, target, lid, etm } => {
+        Commands::Eval { intent, action, target, profile, lid, etm } => {
+            let write_target = if profile == "HOST_SOVEREIGN" { "host" } else { "scratch" };
+            let decider = Arc::new(SeedDecider::new(&profile, write_target));
+
             let act_type = match action.to_lowercase().as_str() {
                 "file_read" => ActionType::FileRead,
                 "file_write" => ActionType::FileWrite,
                 "command_exec" => ActionType::CommandExec,
                 "network_fetch" => ActionType::NetworkFetch,
+                "browser" | "browser_action" => ActionType::BrowserAction,
                 _ => ActionType::PlanStep,
             };
 
@@ -83,6 +98,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             if let Some(t) = target {
                 if act_type == ActionType::CommandExec {
                     args.insert("command".to_string(), serde_json::Value::String(t));
+                } else if act_type == ActionType::BrowserAction {
+                    args.insert("url".to_string(), serde_json::Value::String(t));
                 } else {
                     args.insert("path".to_string(), serde_json::Value::String(t));
                 }
@@ -121,8 +138,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("🔗 SHA-256 Proof:  {}", verdict.audit_hash);
             println!("================================================================================\n");
         }
-        Commands::Serve { socket, tcp } => {
-            println!("🚀 Launching SEED-Core IPC Engine (Rust / Tokio)...");
+        Commands::Serve { socket, tcp, profile } => {
+            let write_target = if profile == "HOST_SOVEREIGN" { "host" } else { "scratch" };
+            let decider = Arc::new(SeedDecider::new(&profile, write_target));
+            println!("🚀 Launching SEED-Core IPC Engine (Rust / Tokio) in {} profile...", profile);
             run_ipc_server(&socket, tcp.as_deref(), decider, knowledge).await?;
         }
         Commands::Learn { concept, domain } => {
@@ -135,10 +154,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("   - Domain:    {}", domain);
             println!("   - Total Memory Neurons: {}", knowledge.len());
         }
-        Commands::Status => {
+        Commands::Status { profile } => {
+            let write_target = if profile == "HOST_SOVEREIGN" { "host" } else { "scratch" };
+            let decider = Arc::new(SeedDecider::new(&profile, write_target));
             println!("\n⚡ SEED-Core Engine Status: OPERATIONAL");
-            println!("   - Profile:        OFFLINE_STRICT (viper-boxd.profile.v0)");
-            println!("   - Target:         scratch confinement");
+            println!("   - Profile:        {} ({})", profile, if profile == "HOST_SOVEREIGN" { "sovereign host execution" } else { "viper-boxd.profile.v0" });
+            println!("   - Target:         {}", write_target);
             println!("   - Audit Blocks:   {} verified cryptographic links", decider.audit_chain_len());
             println!("   - Version:        0.1.0 (Rust 2021)\n");
         }

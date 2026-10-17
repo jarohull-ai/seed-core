@@ -7,6 +7,7 @@ pub enum ActionType {
     FileWrite,
     CommandExec,
     NetworkFetch,
+    BrowserAction,
     PlanStep,
 }
 
