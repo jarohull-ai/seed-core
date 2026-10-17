@@ -2,8 +2,15 @@
 name = "seed-core"
 version = "0.1.0"
 edition = "2021"
-authors = ["Jarosław Kuchta", "SEED AGI Core Team"]
-description = "Deterministic Decision Engine, Real-Time Episodic Memory, and JFP Gatekeeper in Rust"
+authors = ["Jarosław Kuchta <jarohull@gmail.com>", "SEED AGI Core Team"]
+description = "Deterministic 2-Stage Decision Engine, Real-Time Episodic Memory, and JFP Gatekeeper in native Rust."
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/jarohull-ai/seed-core"
+homepage = "https://github.com/jarohull-ai/seed-core"
+documentation = "https://docs.rs/seed-core"
+keywords = ["decision-engine", "ai-safety", "gatekeeper", "deterministic", "agi"]
+categories = ["algorithms", "development-tools", "science"]
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
