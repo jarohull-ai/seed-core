@@ -1,6 +1,6 @@
 [package]
 name = "seed-core"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Jarosław Kuchta <jarohull@gmail.com>", "SEED AGI Core Team"]
 description = "Deterministic 2-Stage Decision Engine, Real-Time Episodic Memory, and JFP Gatekeeper in native Rust."
