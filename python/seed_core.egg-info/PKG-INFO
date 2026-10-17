@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: seed-core
+Version: 0.1.1
+Summary: Sub-microsecond deterministic 2-stage execution gatekeeper and AGI decider in native Rust.
+Home-page: https://github.com/jarohull-ai/seed-core
+Author: Jarosław Kuchta
+Author-email: jarohull@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Rust
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Security
+Requires-Python: >=3.8

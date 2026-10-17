@@ -1,1 +1,5 @@
 /target
+/.venv
+*.so
+dist/
+*.whl

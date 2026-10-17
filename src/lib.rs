@@ -1,4 +1,5 @@
 pub mod decider;
+pub mod ffi;
 pub mod knowledge;
 pub mod server;
 pub mod types;

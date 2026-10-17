@@ -109,15 +109,53 @@ Runs an asynchronous Unix Domain Socket and TCP daemon for client agents (e.g. V
 
 ---
 
+## 🐍 Python SDK (`seed-core`)
+
+The official Python client embeds the native Rust binary via C-FFI, delivering **~15 µs deterministic latency directly in Python**:
+
+```bash
+pip install seed-core
+```
+
+### Integration Example:
+
+```python
+from seed_core import SeedDecider, ActionDirective
+
+# Initialize Stage-2 Decider in HOST_SOVEREIGN mode
+decider = SeedDecider(profile="HOST_SOVEREIGN")
+
+# Evaluate an action proposal before execution
+verdict = decider.evaluate(
+    intent="Execute workspace build",
+    action_type="command_exec",
+    target="cargo build --release"
+)
+
+if verdict.is_approved:
+    print(f"✅ Executed in {verdict.latency_us} µs (Audit: {verdict.audit_hash[:16]}...)")
+elif verdict.is_vetoed:
+    print(f"🚫 Intercepted attack: {verdict.reason}")
+elif verdict.requires_escalation:
+    print(f"⚠️ Escalated to human operator: {verdict.reason}")
+```
+
+---
+
 ## 📁 Repository Layout
 
 ```
 seed-core/
 ├── Cargo.toml
 ├── LICENSE            # SEED-Core Community & Commercial Dual License
+├── python/
+│   ├── seed_core/     # Native Python SDK package
+│   ├── setup.py       # Wheel distribution configuration
+│   └── test_python_sdk.py
 ├── src/
-│   ├── lib.rs         # Module exports & 11 comprehensive unit tests
+│   ├── lib.rs         # Module exports & 11 unit tests
 │   ├── main.rs        # CLI entry point (eval, serve, learn, status)
+│   ├── ffi.rs         # High-speed C-ABI for Python / Node bindings
 │   ├── types.rs       # Shared data structures, directives, & metrics
 │   ├── decider.rs     # Deterministic JFP Decider (HOST_SOVEREIGN & OFFLINE_STRICT)
 │   ├── knowledge.rs   # Real-time memory store & vector geometry (LID)
@@ -134,8 +172,22 @@ Author: Jarosław Kuchta | VIKI Ecosystem
 
 ---
 
-## ⚖️ License & Commercial Terms
+## ⚖️ Commercial Licensing & Enterprise SLA
 
-- **Free for Personal & Non-Commercial Use:** Completely free for individual developers, hobbyists, students, and academic/open research.
-- **Commercial & Enterprise Use:** Any deployment, linking, or incorporation into commercial products, revenue-generating systems, or for-profit corporate environments requires a valid Commercial License Agreement.
-- **Enterprise Contact:** Jarosław Kuchta (`jarohull@gmail.com`) | Repository: [github.com/jarohull-ai/seed-core](https://github.com/jarohull-ai/seed-core)
+SEED-Core is released under a **Dual Community & Commercial License**:
+
+| Tier | License Fee | Scope | Target Audience |
+| :--- | :---: | :--- | :--- |
+| **Community** | **FREE** | Personal, non-commercial evaluation, hobbyist, academic research | Developers & Researchers |
+| **Startup / Pro** | **$499 / mo** | Commercial deployment for up to 10 production agents / nodes | SaaS & AI Startups |
+| **Enterprise** | **$2,499 / mo** | Unlimited agents, custom JFP constitutional profiles, EU AI Act compliance & SLA | Enterprises, Banks, Healthcare |
+
+### ☁️ SEED Compliance Vault (Enterprise SaaS)
+A cryptographic flight recorder streaming real-time SHA-256 proof blocks from local SEED-Core instances to an executive security dashboard:
+- **Instant EU AI Act, SOC2 & ISO 42001 compliance audit trails**.
+- **Real-time topological hallucination (LID) tracking**.
+- **Tamper-evident proof-of-veto verification**.
+
+To acquire an Enterprise Commercial License or join the SEED Vault pilot:  
+📧 **Contact:** Jarosław Kuchta (`jarohull@gmail.com`) | Repository: [github.com/jarohull-ai/seed-core](https://github.com/jarohull-ai/seed-core)
+
