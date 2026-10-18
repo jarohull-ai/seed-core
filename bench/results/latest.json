@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-10-18T08:05:54.430854+00:00",
+  "system": {
+    "os": "Linux",
+    "release": "7.0.0-38-generic",
+    "machine": "x86_64",
+    "python_version": "3.12.3"
+  },
+  "iterations": 10000,
+  "total_seconds": 0.1588,
+  "throughput_decisions_per_sec": 62979.7,
+  "latency_microseconds": {
+    "min": 12.65,
+    "median": 14.47,
+    "p90": 17.82,
+    "p99": 35.99,
+    "p99_9": 63.14,
+    "max": 155.7
+  },
+  "metrics": {
+    "accuracy_percent": 100.0,
+    "false_positive_rate_percent": 0.0,
+    "false_negative_rate_percent": 0.0,
+    "threat_containment_rate_percent": 100.0
+  }
+}

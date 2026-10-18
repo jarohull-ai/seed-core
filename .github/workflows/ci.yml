@@ -11,6 +11,18 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
+  security-audit:
+    name: Supply Chain Security & Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Cargo Audit
+        uses: rustsec/audit-check@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   rust-verify:
     name: Rust Verification (Test, Clippy, Format)
     runs-on: ubuntu-latest
@@ -47,7 +59,7 @@ jobs:
         run: cargo build --release
 
   python-sdk-verify:
-    name: Python SDK & C-FFI Verification
+    name: Python SDK & Benchmark Verification
     runs-on: ubuntu-latest
     needs: rust-verify
     strategy:
@@ -79,3 +91,11 @@ jobs:
 
       - name: Run High-Throughput Micro-Benchmark
         run: ./bench/run_benchmarks.sh
+
+      - name: Upload Benchmark Results Artifact
+        if: matrix.python-version == '3.12'
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results-latest
+          path: bench/results/latest.json
+          retention-days: 30
