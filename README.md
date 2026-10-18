@@ -3,7 +3,7 @@
 [![CI](https://github.com/jarohull-ai/seed-core/actions/workflows/ci.yml/badge.svg)](https://github.com/jarohull-ai/seed-core/actions/workflows/ci.yml)
 [![Crates.io Version](https://img.shields.io/crates/v/seed-core.svg)](https://crates.io/crates/seed-core)
 [![Documentation](https://docs.rs/seed-core/badge.svg)](https://docs.rs/seed-core)
-[![Security Audit: Clean](https://img.shields.io/badge/Security%20Audit-Zero%20Vulnerabilities-success.svg)]()
+[![RustSec Audit: 0 Vulnerabilities](https://img.shields.io/badge/RustSec%20Audit-0%20Vulnerabilities-success.svg)](#-supply-chain-security-footnote)
 [![Benchmark: 14.5 µs](https://img.shields.io/badge/Benchmark-14.5%20µs%20%7C%2062k%20ops-brightgreen.svg)](docs/BENCHMARK_VS_LLM.md)
 [![License: Dual](https://img.shields.io/badge/License-Community%20%2B%20Commercial-blue.svg)]()
 
@@ -14,7 +14,8 @@
 > Replace slow, expensive, and jailbreak-vulnerable LLM-as-a-judge endpoints with a 15 µs deterministic Rust gatekeeper — cutting decision costs by 90%+ while gaining cryptographic SHA-256 audit trails.
 >
 > 🔬 **Reproducible Benchmarks:** `./bench/run_benchmarks.sh` | Raw Artifact: [`bench/results/latest.json`](bench/results/latest.json)  
-> 🛡️ **Formal Security Boundaries:** [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) | Comparison Study: [`docs/BENCHMARK_VS_LLM.md`](docs/BENCHMARK_VS_LLM.md)
+> 🛡️ **Formal Security Boundaries:** [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) | Comparison Study: [`docs/BENCHMARK_VS_LLM.md`](docs/BENCHMARK_VS_LLM.md)  
+> 🏛️ **Compliance Mapping:** [`docs/COMPLIANCE.md`](docs/COMPLIANCE.md) (EU AI Act, SOC2, ISO 42001) | Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 
 ---
 
@@ -278,6 +279,24 @@ seed-core/
 
 ---
 
+## 🌐 Who Uses SEED-Core?
+
+SEED-Core serves as the production Stage-2 Gatekeeper across multiple sovereign AI platforms:
+
+- **[Viper Chat](https://github.com/jarohull-ai/viper-chat)**: Host-sovereign developer agent running local Ollama LLMs and operating directly on host tools with sub-microsecond SEED-Core constitutional interception.
+- **JFP Ecosystem (Jaro Framework Platform v16E.0.0)**: Constitutional governance framework for multi-agent autonomous engineering pipelines.
+- **VIKI AGI Architecture**: Real-time episodic memory crystallization and topological hallucination prevention.
+
+---
+
+## 💬 Community & Discussions
+
+Have questions about custom constitutional profiles, EU AI Act compliance, or integrating SEED-Core into your agent stack?
+- Join the discussion on **[GitHub Discussions](https://github.com/jarohull-ai/seed-core/discussions)**.
+- For bug reports or security concerns, review [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
+
+---
+
 ## ⚖️ Dual Community & Commercial Licensing
 
 SEED-Core is distributed under a **Dual License** designed to empower developers while providing production SLAs to enterprises:
@@ -296,3 +315,9 @@ A cryptographic flight recorder streaming real-time SHA-256 proof blocks from lo
 
 To acquire a Commercial License, request an audit, or join the SEED Vault pilot:  
 📧 **Contact:** Jarosław Kuchta (`jarohull@gmail.com`) | Repository: [github.com/jarohull-ai/seed-core](https://github.com/jarohull-ai/seed-core)
+
+---
+
+<a name="-supply-chain-security-footnote"></a>
+*\* **Supply Chain Security Note:** The security badge reflects continuous automated vulnerability scans using `cargo-audit` against the [RustSec Advisory Database](https://rustsec.org/) covering all 88 active dependencies (0 advisories detected). It does not imply a third-party commercial manual penetration test.*
+

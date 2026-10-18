@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-18T08:05:54.430854+00:00",
+  "timestamp": "2026-10-18T08:13:54.771705+00:00",
   "system": {
     "os": "Linux",
     "release": "7.0.0-38-generic",
@@ -7,15 +7,15 @@
     "python_version": "3.12.3"
   },
   "iterations": 10000,
-  "total_seconds": 0.1588,
-  "throughput_decisions_per_sec": 62979.7,
+  "total_seconds": 0.177,
+  "throughput_decisions_per_sec": 56493.12,
   "latency_microseconds": {
-    "min": 12.65,
-    "median": 14.47,
-    "p90": 17.82,
-    "p99": 35.99,
-    "p99_9": 63.14,
-    "max": 155.7
+    "min": 13.2,
+    "median": 16.25,
+    "p90": 19.94,
+    "p99": 31.8,
+    "p99_9": 45.79,
+    "max": 167.81
   },
   "metrics": {
     "accuracy_percent": 100.0,

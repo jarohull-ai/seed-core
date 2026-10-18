@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.5] - 2026-10-18
+
+### Added
+- **Enterprise Architecture Guide (`docs/ARCHITECTURE.md`)**: Full architectural breakdown of subsystems, Mermaid decision lifecycle sequence, Maximum Likelihood LID mathematics, and SHA-256 block chain layout.
+- **Enterprise Regulatory Compliance Framework (`docs/COMPLIANCE.md`)**: Concrete mapping to the European Union AI Act (Articles 14, 12, 15, 9), SOC2 Type II (CC6.1, CC6.6, CC7.2), and ISO/IEC 42001:2023.
+- **Benchmark Methodology**: Added comprehensive empirical setup in `docs/BENCHMARK_VS_LLM.md` (dataset balance, API models, temperature, determinism variance, and hardware specs).
+- **Toolchain Pinning (`rust-toolchain.toml`)**: Pinned stable Rust toolchain with components `clippy` and `rustfmt`.
+- **Ecosystem Social Proof**: Added „Who Uses SEED-Core?” showcasing Viper Chat, JFP v16E.0.0, and VIKI AGI.
+- **Community Forum**: Linked official GitHub Discussions.
+
+### Changed
+- Clarified supply chain security badge to explicitly indicate RustSec / `cargo-audit` (0 vulnerabilities in 88 dependencies) with transparent footnote.
+
+---
+
 ## [0.1.4] - 2026-10-18
 
 ### Added
