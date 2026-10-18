@@ -6,6 +6,12 @@ pub struct KnowledgeStore {
     neurons: Arc<RwLock<Vec<Neuron>>>,
 }
 
+impl Default for KnowledgeStore {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl KnowledgeStore {
     pub fn new() -> Self {
         Self {
@@ -47,21 +53,33 @@ impl KnowledgeStore {
 
         let q_norm = norm(query_vec);
         if q_norm < 1e-9 {
-            return (Vec::new(), GeometryMetrics {
-                lid: 1.0,
-                cos_gap: 0.0,
-                etm: 0.0,
-                activated_domains: vec!["empty".into()],
-                activated_ages: vec![0],
-            });
+            return (
+                Vec::new(),
+                GeometryMetrics {
+                    lid: 1.0,
+                    cos_gap: 0.0,
+                    etm: 0.0,
+                    activated_domains: vec!["empty".into()],
+                    activated_ages: vec![0],
+                },
+            );
         }
 
         let mut scored: Vec<(f32, &Neuron)> = store
             .iter()
             .map(|n| {
-                let dot: f32 = n.vector.iter().zip(query_vec.iter()).map(|(a, b)| a * b).sum();
+                let dot: f32 = n
+                    .vector
+                    .iter()
+                    .zip(query_vec.iter())
+                    .map(|(a, b)| a * b)
+                    .sum();
                 let n_norm = norm(&n.vector);
-                let cos = if n_norm > 1e-9 { dot / (q_norm * n_norm) } else { 0.0 };
+                let cos = if n_norm > 1e-9 {
+                    dot / (q_norm * n_norm)
+                } else {
+                    0.0
+                };
                 (cos, n)
             })
             .collect();

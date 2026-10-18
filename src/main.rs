@@ -8,7 +8,9 @@ use std::sync::Arc;
 
 #[derive(Parser)]
 #[command(name = "seed-core")]
-#[command(about = "Deterministic Decision Engine, Real-Time Episodic Memory & JFP Gatekeeper in Rust")]
+#[command(
+    about = "Deterministic Decision Engine, Real-Time Episodic Memory & JFP Gatekeeper in Rust"
+)]
 #[command(version = "0.1.0")]
 struct Cli {
     #[command(subcommand)]
@@ -81,8 +83,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let knowledge = Arc::new(KnowledgeStore::new());
 
     match cli.command {
-        Commands::Eval { intent, action, target, profile, lid, etm } => {
-            let write_target = if profile == "HOST_SOVEREIGN" { "host" } else { "scratch" };
+        Commands::Eval {
+            intent,
+            action,
+            target,
+            profile,
+            lid,
+            etm,
+        } => {
+            let write_target = if profile == "HOST_SOVEREIGN" {
+                "host"
+            } else {
+                "scratch"
+            };
             let decider = Arc::new(SeedDecider::new(&profile, write_target));
 
             let act_type = match action.to_lowercase().as_str() {
@@ -124,7 +137,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let verdict = decider.evaluate(&candidate, &geom);
 
             println!("\n🧠 SEED-CORE DETERMINISTIC VERDICT");
-            println!("================================================================================");
+            println!(
+                "================================================================================"
+            );
             let icon = match verdict.verdict {
                 VerdictStatus::Approved => "✅ APPROVED",
                 VerdictStatus::VetoDenied => "🚫 VETO_DENIED",
@@ -133,15 +148,30 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("⚖️  Status:         {}", icon);
             println!("🎯 Directive:      {:?}", verdict.action);
             println!("🛡️  Confidence:     {:?}", verdict.confidence);
-            println!("⚡ Latency:        {} µs ({:.3} ms)", verdict.latency_us, verdict.latency_us as f64 / 1000.0);
+            println!(
+                "⚡ Latency:        {} µs ({:.3} ms)",
+                verdict.latency_us,
+                verdict.latency_us as f64 / 1000.0
+            );
             println!("💬 Reason:         {}", verdict.reason);
             println!("🔗 SHA-256 Proof:  {}", verdict.audit_hash);
             println!("================================================================================\n");
         }
-        Commands::Serve { socket, tcp, profile } => {
-            let write_target = if profile == "HOST_SOVEREIGN" { "host" } else { "scratch" };
+        Commands::Serve {
+            socket,
+            tcp,
+            profile,
+        } => {
+            let write_target = if profile == "HOST_SOVEREIGN" {
+                "host"
+            } else {
+                "scratch"
+            };
             let decider = Arc::new(SeedDecider::new(&profile, write_target));
-            println!("🚀 Launching SEED-Core IPC Engine (Rust / Tokio) in {} profile...", profile);
+            println!(
+                "🚀 Launching SEED-Core IPC Engine (Rust / Tokio) in {} profile...",
+                profile
+            );
             run_ipc_server(&socket, tcp.as_deref(), decider, knowledge).await?;
         }
         Commands::Learn { concept, domain } => {
@@ -155,12 +185,27 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("   - Total Memory Neurons: {}", knowledge.len());
         }
         Commands::Status { profile } => {
-            let write_target = if profile == "HOST_SOVEREIGN" { "host" } else { "scratch" };
+            let write_target = if profile == "HOST_SOVEREIGN" {
+                "host"
+            } else {
+                "scratch"
+            };
             let decider = Arc::new(SeedDecider::new(&profile, write_target));
             println!("\n⚡ SEED-Core Engine Status: OPERATIONAL");
-            println!("   - Profile:        {} ({})", profile, if profile == "HOST_SOVEREIGN" { "sovereign host execution" } else { "viper-boxd.profile.v0" });
+            println!(
+                "   - Profile:        {} ({})",
+                profile,
+                if profile == "HOST_SOVEREIGN" {
+                    "sovereign host execution"
+                } else {
+                    "viper-boxd.profile.v0"
+                }
+            );
             println!("   - Target:         {}", write_target);
-            println!("   - Audit Blocks:   {} verified cryptographic links", decider.audit_chain_len());
+            println!(
+                "   - Audit Blocks:   {} verified cryptographic links",
+                decider.audit_chain_len()
+            );
             println!("   - Version:        0.1.0 (Rust 2021)\n");
         }
     }

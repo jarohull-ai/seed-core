@@ -43,7 +43,10 @@ pub async fn run_ipc_server(
     }
 
     let unix_listener = UnixListener::bind(socket_path)?;
-    println!("⚡ [seed-core] Unix Domain Socket active at: {}", socket_path);
+    println!(
+        "⚡ [seed-core] Unix Domain Socket active at: {}",
+        socket_path
+    );
 
     if let Some(addr) = tcp_addr {
         let tcp_listener = TcpListener::bind(addr).await?;
@@ -91,7 +94,10 @@ fn handle_request(
     knowledge: &KnowledgeStore,
 ) -> IpcResponse<serde_json::Value> {
     match serde_json::from_str::<IpcRequest>(line) {
-        Ok(IpcRequest::Evaluate { candidate, geometry }) => {
+        Ok(IpcRequest::Evaluate {
+            candidate,
+            geometry,
+        }) => {
             let geom = geometry.unwrap_or_default();
             let verdict = decider.evaluate(&candidate, &geom);
             IpcResponse {
@@ -100,11 +106,17 @@ fn handle_request(
                 error: None,
             }
         }
-        Ok(IpcRequest::Learn { concept, domain, vector }) => {
+        Ok(IpcRequest::Learn {
+            concept,
+            domain,
+            vector,
+        }) => {
             let neuron_id = knowledge.learn(concept, domain, vector);
             IpcResponse {
                 success: true,
-                data: Some(serde_json::json!({ "neuron_id": neuron_id, "total_neurons": knowledge.len() })),
+                data: Some(
+                    serde_json::json!({ "neuron_id": neuron_id, "total_neurons": knowledge.len() }),
+                ),
                 error: None,
             }
         }

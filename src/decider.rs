@@ -68,8 +68,12 @@ impl SeedDecider {
         ];
 
         let ssrf = vec![
-            Regex::new(r"\b(localhost|127\.\d+\.\d+\.\d+|0\.0\.0\.0|169\.254\.169\.254)\b").unwrap(),
-            Regex::new(r"\b(10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)\b").unwrap(),
+            Regex::new(r"\b(localhost|127\.\d+\.\d+\.\d+|0\.0\.0\.0|169\.254\.169\.254)\b")
+                .unwrap(),
+            Regex::new(
+                r"\b(10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)\b",
+            )
+            .unwrap(),
             Regex::new(r"\[::1\]").unwrap(),
         ];
 
@@ -82,9 +86,7 @@ impl SeedDecider {
             Regex::new(r"\bkillall\b").unwrap(),
         ];
 
-        let dangerous_payload = vec![
-            Regex::new(r"\.(exe|sh|bin|elf|appimage)$").unwrap(),
-        ];
+        let dangerous_payload = vec![Regex::new(r"\.(exe|sh|bin|elf|appimage)$").unwrap()];
 
         let system_dir = vec![
             Regex::new(r"^/etc(/|$)").unwrap(),
@@ -142,7 +144,10 @@ impl SeedDecider {
                     VerdictStatus::VetoDenied,
                     ActionDirective::Refuse,
                     ConfidenceLevel::High,
-                    &format!("VETO: access or exfiltration of protected secret [{}] strictly denied", pat),
+                    &format!(
+                        "VETO: access or exfiltration of protected secret [{}] strictly denied",
+                        pat
+                    ),
                     start,
                 );
             }
@@ -157,7 +162,10 @@ impl SeedDecider {
                         VerdictStatus::VetoDenied,
                         ActionDirective::Refuse,
                         ConfidenceLevel::High,
-                        &format!("VETO: destructive mutation vector [{}] strictly prohibited on host", pat),
+                        &format!(
+                            "VETO: destructive mutation vector [{}] strictly prohibited on host",
+                            pat
+                        ),
                         start,
                     );
                 }
@@ -188,26 +196,32 @@ impl SeedDecider {
                     );
                 }
             }
-            if self.profile_mode == "OFFLINE_STRICT" && self.write_target == "scratch" {
-                if !target_path.starts_with("scratch/")
-                    && !target_path.starts_with("./scratch/")
-                    && !target_path.starts_with("dist/")
-                {
-                    return self.finalize(
-                        candidate.step_id,
-                        VerdictStatus::VetoDenied,
-                        ActionDirective::Refuse,
-                        ConfidenceLevel::High,
-                        &format!("VETO: write target restricted to [{}] sandbox in OFFLINE_STRICT", self.write_target),
-                        start,
-                    );
-                }
+            if self.profile_mode == "OFFLINE_STRICT"
+                && self.write_target == "scratch"
+                && !target_path.starts_with("scratch/")
+                && !target_path.starts_with("./scratch/")
+                && !target_path.starts_with("dist/")
+            {
+                return self.finalize(
+                    candidate.step_id,
+                    VerdictStatus::VetoDenied,
+                    ActionDirective::Refuse,
+                    ConfidenceLevel::High,
+                    &format!(
+                        "VETO: write target restricted to [{}] sandbox in OFFLINE_STRICT",
+                        self.write_target
+                    ),
+                    start,
+                );
             }
         }
 
         // 4. BROWSER ACTION CONSTITUTIONAL RULES
         if candidate.action_type == ActionType::BrowserAction {
-            if url.starts_with("file://") || url.starts_with("chrome://") || url.starts_with("javascript:") {
+            if url.starts_with("file://")
+                || url.starts_with("chrome://")
+                || url.starts_with("javascript:")
+            {
                 return self.finalize(
                     candidate.step_id,
                     VerdictStatus::VetoDenied,
@@ -224,7 +238,10 @@ impl SeedDecider {
                         VerdictStatus::VetoDenied,
                         ActionDirective::Refuse,
                         ConfidenceLevel::High,
-                        &format!("VETO: browser SSRF or private network vector [{}] blocked", ssrf),
+                        &format!(
+                            "VETO: browser SSRF or private network vector [{}] blocked",
+                            ssrf
+                        ),
                         start,
                     );
                 }
@@ -236,7 +253,10 @@ impl SeedDecider {
                         VerdictStatus::VetoDenied,
                         ActionDirective::Refuse,
                         ConfidenceLevel::High,
-                        &format!("VETO: executable payload download [{}] prohibited in browser", payload),
+                        &format!(
+                            "VETO: executable payload download [{}] prohibited in browser",
+                            payload
+                        ),
                         start,
                     );
                 }
@@ -263,7 +283,10 @@ impl SeedDecider {
                             VerdictStatus::VetoDenied,
                             ActionDirective::Refuse,
                             ConfidenceLevel::High,
-                            &format!("VETO: outbound network pattern [{}] detected in command", pat),
+                            &format!(
+                                "VETO: outbound network pattern [{}] detected in command",
+                                pat
+                            ),
                             start,
                         );
                     }
@@ -306,7 +329,10 @@ impl SeedDecider {
                             VerdictStatus::EscalateParliament,
                             ActionDirective::Escalate,
                             ConfidenceLevel::High,
-                            &format!("ESCALATE: high-impact host mutation [{}] requires human approval", esc),
+                            &format!(
+                                "ESCALATE: high-impact host mutation [{}] requires human approval",
+                                esc
+                            ),
                             start,
                         );
                     }
@@ -315,14 +341,21 @@ impl SeedDecider {
         }
 
         // 6. MATHEMATICAL CONSTITUTIONAL RULE: Generic Hub Dominance Veto
-        let learned_count = geom.activated_domains.iter().filter(|d| *d == "learned").count();
+        let learned_count = geom
+            .activated_domains
+            .iter()
+            .filter(|d| *d == "learned")
+            .count();
         if learned_count >= 3 {
             return self.finalize(
                 candidate.step_id,
                 VerdictStatus::VetoDenied,
                 ActionDirective::Refuse,
                 ConfidenceLevel::Mid,
-                &format!("VETO: learned_hub_dominance={}/5 unanchored extrapolation", learned_count),
+                &format!(
+                    "VETO: learned_hub_dominance={}/5 unanchored extrapolation",
+                    learned_count
+                ),
                 start,
             );
         }
@@ -334,7 +367,10 @@ impl SeedDecider {
                 VerdictStatus::EscalateParliament,
                 ActionDirective::Escalate,
                 ConfidenceLevel::Mid,
-                &format!("ESCALATE: geometric_surprise lid={:.2}>0.70 (hallucination cloud)", geom.lid),
+                &format!(
+                    "ESCALATE: geometric_surprise lid={:.2}>0.70 (hallucination cloud)",
+                    geom.lid
+                ),
                 start,
             );
         }
@@ -353,7 +389,10 @@ impl SeedDecider {
                 VerdictStatus::EscalateParliament,
                 ActionDirective::Escalate,
                 ConfidenceLevel::Mid,
-                &format!("ESCALATE: knowledge staleness median_age={:.0}d exceeds threshold", median_age),
+                &format!(
+                    "ESCALATE: knowledge staleness median_age={:.0}d exceeds threshold",
+                    median_age
+                ),
                 start,
             );
         }
@@ -373,7 +412,10 @@ impl SeedDecider {
                     VerdictStatus::VetoDenied,
                     ActionDirective::Refuse,
                     ConfidenceLevel::High,
-                    &format!("VETO: repetitive failure loop detected ({} repeated attempts)", recent_fails + 1),
+                    &format!(
+                        "VETO: repetitive failure loop detected ({} repeated attempts)",
+                        recent_fails + 1
+                    ),
                     start,
                 );
             }
@@ -412,12 +454,17 @@ impl SeedDecider {
         let latency_us = start.elapsed().as_micros() as u64;
 
         // Record history for streak-guard
-        self.recent_history.write().push((reason.to_string(), verdict.clone()));
+        self.recent_history
+            .write()
+            .push((reason.to_string(), verdict.clone()));
 
         // Cryptographic Tamper-Evident SHA-256 Proof Chain
         let mut chain = self.audit_chain.write();
         let prev_hash = chain.last().cloned().unwrap_or_default();
-        let payload = format!("{}:{:?}:{:?}:{}:{}", step_id, verdict, action, reason, prev_hash);
+        let payload = format!(
+            "{}:{:?}:{:?}:{}:{}",
+            step_id, verdict, action, reason, prev_hash
+        );
         let mut hasher = Sha256::new();
         hasher.update(payload.as_bytes());
         let audit_hash = format!("{:x}", hasher.finalize());

@@ -10,7 +10,7 @@ if so_source.exists():
 
 setup(
     name="seed-core",
-    version="0.1.1",
+    version="0.1.3",
     description="Sub-microsecond deterministic 2-stage execution gatekeeper and AGI decider in native Rust.",
     author="Jarosław Kuchta",
     author_email="jarohull@gmail.com",

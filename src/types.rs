@@ -23,11 +23,11 @@ pub struct CandidateAction {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GeometryMetrics {
-    pub lid: f32,                     // Local Intrinsic Dimensionality [0.0 - 1.0] (> 0.70 = hallucination cloud)
-    pub cos_gap: f32,                 // Separation gap between top-1 and top-2
-    pub etm: f32,                     // Evidence Trust Metric [0.0 - 1.0]
+    pub lid: f32, // Local Intrinsic Dimensionality [0.0 - 1.0] (> 0.70 = hallucination cloud)
+    pub cos_gap: f32, // Separation gap between top-1 and top-2
+    pub etm: f32, // Evidence Trust Metric [0.0 - 1.0]
     pub activated_domains: Vec<String>,
-    pub activated_ages: Vec<u32>,     // Age in days
+    pub activated_ages: Vec<u32>, // Age in days
 }
 
 impl Default for GeometryMetrics {
@@ -70,7 +70,7 @@ pub struct DeciderVerdict {
     pub action: ActionDirective,
     pub confidence: ConfidenceLevel,
     pub reason: String,
-    pub latency_us: u64,              // Microseconds
+    pub latency_us: u64, // Microseconds
     pub audit_hash: String,
     pub timestamp: String,
 }
