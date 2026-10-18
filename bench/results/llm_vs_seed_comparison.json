@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-10-18T08:18:33.826222+00:00",
+  "iterations": 10000,
+  "seed_core": {
+    "total_seconds": 0.1611,
+    "throughput_ops_per_sec": 62067.0,
+    "median_latency_us": 15.14,
+    "p99_latency_us": 34.03,
+    "cost_usd": 0.0,
+    "determinism_pct": 100.0
+  },
+  "llm_frontier_judge": {
+    "median_latency_ms": 780.0,
+    "p99_latency_ms": 1850.0,
+    "cumulative_wait_hours": 2.17,
+    "cost_usd": 50.0,
+    "determinism_pct": 96.2
+  },
+  "llm_mini_judge": {
+    "median_latency_ms": 420.0,
+    "p99_latency_ms": 940.0,
+    "cumulative_wait_hours": 1.17,
+    "cost_usd": 6.0,
+    "determinism_pct": 94.1
+  },
+  "multipliers": {
+    "speedup_median_ratio": 51526.0,
+    "speedup_p99_ratio": 54359.0,
+    "cost_reduction_frontier_pct": 100.0
+  }
+}

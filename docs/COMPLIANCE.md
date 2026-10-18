@@ -3,6 +3,9 @@
 
 Autonomous AI agents operating in enterprise environments require verifiable compliance with international safety regulations and security audit standards. This document details how **SEED-Core** maps directly to mandatory compliance articles and control criteria.
 
+> [!IMPORTANT]
+> **Regulatory Disclaimer:** This document maps SEED-Core technical capabilities and architectural invariants to international regulatory standards and control criteria. It serves as an engineering implementation guide and does not constitute formal legal counsel or an accredited certification. Full enterprise compliance requires an accredited third-party auditor and organization-specific operational controls.
+
 ---
 
 ## 🇪🇺 EU AI Act (Regulation (EU) 2024/1689)

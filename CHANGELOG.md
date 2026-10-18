@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.6] - 2026-10-18
+
+### Added
+- **Developer FAQ (`docs/FAQ.md`)**: Comprehensive answers covering LLM replacement vs gatekeeper roles, prompt injection immunity, LID tuning, and dual licensing.
+- **Product & Technical Roadmap (`docs/ROADMAP.md`)**: Detailed milestone trajectory from v0.1 through v0.4 Compliance Vault and v1.0 Long-Term Support (LTS).
+- **Framework Integration Guide (`docs/INTEGRATION_GUIDE.md`)**: Ready-to-use patterns for LangChain tool wrappers, LlamaIndex guardrails, and Node.js/TypeScript Tokio IPC.
+- **Side-by-Side LLM Benchmark Script (`bench/compare_llm.py`)**: Automated script measuring speedup and cost reduction against frontier LLM deciders.
+- **Compliance Regulatory Disclaimer**: Added explicit auditor safeguard in `docs/COMPLIANCE.md` preventing overclaiming.
+
+### Changed
+- Expanded Reproducibility section in `docs/BENCHMARK_VS_LLM.md` with token cost calculations and script links.
+- Updated repository documentation index and navigation bar in `README.md`.
+
+---
+
 ## [0.1.5] - 2026-10-18
 
 ### Added

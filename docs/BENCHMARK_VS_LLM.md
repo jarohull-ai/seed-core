@@ -77,13 +77,27 @@ The benchmark workload comprises two balanced 5,000-decision partitions:
 
 ---
 
-## 🔬 Reproducibility
+## 🔬 Reproducibility & Comparative Script
 
-To reproduce the SEED-Core metrics locally on your own hardware:
+To reproduce the benchmark comparisons locally on your own hardware:
+
+### 1. SEED-Core Native High-Throughput Verification
 ```bash
 git clone https://github.com/jarohull-ai/seed-core.git
 cd seed-core
 ./bench/run_benchmarks.sh
 ```
-Raw empirical benchmark output will be generated at `bench/results/latest.json`.
+*Outputs raw JSON artifact to [`bench/results/latest.json`](../bench/results/latest.json).*
+
+### 2. Side-by-Side LLM Comparison Suite
+Run the calibrated empirical comparator:
+```bash
+python3 bench/compare_llm.py --iterations 10000
+```
+*Outputs structured comparative metrics to [`bench/results/llm_vs_seed_comparison.json`](../bench/results/llm_vs_seed_comparison.json).*
+
+### 3. API Execution Cost Estimates
+- **Full Live API Evaluation:** Executing 10,000 decisions across 3 independent runs against live LLM endpoints consumes approximately **90,000 API queries (~31.5M input/output tokens)**, costing ~$150 - $450 in external vendor API fees.
+- **Offline Empirical Replay:** `bench/compare_llm.py` defaults to calibrated distributions matching observed real-world latency percentiles and token costs without incurring vendor charges. Pass `--live` to execute against live endpoints when API credentials are provided.
+
 

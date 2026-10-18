@@ -15,7 +15,8 @@
 >
 > 🔬 **Reproducible Benchmarks:** `./bench/run_benchmarks.sh` | Raw Artifact: [`bench/results/latest.json`](bench/results/latest.json)  
 > 🛡️ **Formal Security Boundaries:** [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) | Comparison Study: [`docs/BENCHMARK_VS_LLM.md`](docs/BENCHMARK_VS_LLM.md)  
-> 🏛️ **Compliance Mapping:** [`docs/COMPLIANCE.md`](docs/COMPLIANCE.md) (EU AI Act, SOC2, ISO 42001) | Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+> 🏛️ **Compliance Mapping:** [`docs/COMPLIANCE.md`](docs/COMPLIANCE.md) (EU AI Act, SOC2, ISO 42001) | Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)  
+> 📚 **Developer Resources:** [`docs/INTEGRATION_GUIDE.md`](docs/INTEGRATION_GUIDE.md) | FAQ: [`docs/FAQ.md`](docs/FAQ.md) | Roadmap: [`docs/ROADMAP.md`](docs/ROADMAP.md)
 
 ---
 
@@ -249,12 +250,19 @@ seed-core/
 ├── .github/workflows/
 │   └── ci.yml             # Automated CI (Rust test, clippy, fmt, audit + Python matrix)
 ├── bench/
+│   ├── compare_llm.py     # Empirical comparator: SEED-Core vs LLM-as-a-judge
 │   ├── run_benchmarks.sh  # Public reproducibility benchmark script
 │   └── results/
-│       └── latest.json    # Machine-readable benchmark artifact
+│       ├── latest.json    # Machine-readable benchmark artifact
+│       └── llm_vs_seed_comparison.json
 ├── docs/
-│   ├── THREAT_MODEL.md    # Formal security boundaries & non-goals
-│   └── BENCHMARK_VS_LLM.md # In-depth empirical study vs LLM deciders
+│   ├── ARCHITECTURE.md    # Subsystems, decision lifecycle, and LID math
+│   ├── BENCHMARK_VS_LLM.md # In-depth empirical study vs LLM deciders
+│   ├── COMPLIANCE.md      # EU AI Act, SOC2, and ISO 42001 mapping
+│   ├── FAQ.md             # Developer and enterprise FAQ
+│   ├── INTEGRATION_GUIDE.md # LangChain, LlamaIndex, and Node.js guides
+│   ├── ROADMAP.md         # Release milestones through v1.0 LTS
+│   └── THREAT_MODEL.md    # Formal security boundaries & non-goals
 ├── examples/
 │   └── migrate_from_jev.py # Demo migrating from LLM-as-a-judge to SEED-Core
 ├── python/
@@ -274,7 +282,8 @@ seed-core/
 ├── CONTRIBUTING.md        # Contribution & coding standards guide
 ├── LICENSE                # Dual Community / Commercial License
 ├── README.md              # Documentation & benchmarks
-└── SECURITY.md            # Responsible disclosure & security architecture
+├── SECURITY.md            # Responsible disclosure & security architecture
+└── rust-toolchain.toml    # Stable toolchain pinning with clippy/rustfmt
 ```
 
 ---
